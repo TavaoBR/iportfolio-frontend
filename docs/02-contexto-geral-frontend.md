@@ -35,8 +35,9 @@ Cada domínio pode mapear para um **módulo** em `src/modules/` (ver **03**) par
 
 ### Autenticação
 
-1. `POST /api/auth/login` → guardar token (memória + `sessionStorage` ou fluxo com cookie se houver BFF).
-2. Anexar header em todos os pedidos autenticados.
+1. **Registo** — `POST /api/users` (ver `docs/modulos/02-usuario-e-perfil.md`): criar utilizador; a SPA em `web/` usa `/registar` e envia nome, email e palavra-passe conforme o contrato real.
+2. `POST /api/auth/login` → guardar token (memória + `sessionStorage` ou fluxo com cookie se houver BFF).
+3. Anexar header em todos os pedidos autenticados.
 
 ### Templates premium
 
@@ -56,6 +57,12 @@ Cada domínio pode mapear para um **módulo** em `src/modules/` (ver **03**) par
 - **Tipagem**: tipos para payloads da API em `src/types/` ou gerados futuramente a partir de OpenAPI.
 - **Acessibilidade e i18n**: consideradas desde o início (ver **10** e **12**).
 
-## O que este repositório de contexto cobre
+## O que este repositório cobre
 
-Este diretório (`contexto-iportfolio-frontend`) é **só documentação** e assets de referência (`templates-cv/`). O código da aplicação vive noutro repositório (ex. `iportfolio-web`), mantendo este espaço como **contrato de arquitetura e design** entre equipas.
+Este repositório (**iportfolio-frontend**) inclui:
+
+- **`docs/`** — documentação oficial (contrato de produto, arquitetura, API, UI, qualidade).
+- **`web/`** — implementação da SPA (Vue 3, Vite, Tailwind, Flowbite, Pinia, Router, Axios) alinhada a estes documentos.
+- **`templates-cv/`**, **`template-plataforma/`**, **`contexto/frontend/`** — referências visuais e contexto permanente para equipas e IA.
+
+A **especificação normativa** para implementação é **`docs/`** (e `contexto/frontend/` como resumo operacional). O código em `web/` deve refletir alterações feitas na documentação.

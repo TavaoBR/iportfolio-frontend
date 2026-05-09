@@ -4,7 +4,7 @@
 
 O frontend é a **camada de experiência** da plataforma **iPortfolio**: gestão de perfil profissional, construção de currículos com secções editáveis, escolha de templates (gratuitos ou premium), pagamentos via **Mercado Pago**, publicação de portfólios e visualização/exportação (ex.: PDF).
 
-A **fonte de verdade** dos dados é a API REST **`iportfolio-api`**. Este repositório (`iportfolio-frontend`) concentra documentação, referências visuais de templates e o contexto permanente em `context/frontend/`; o código da aplicação pode viver no mesmo mono-repo ou noutro repositório (ex.: `iportfolio-web`), mas deve obedecer aos mesmos contratos aqui descritos.
+A **fonte de verdade** dos dados é a API REST **`iportfolio-api`**. A **especificação** do frontend está em **`docs/`**; este ficheiro e `contexto/frontend/` resumem para implementação. O código da SPA vive em **`web/`** e deve seguir `docs/` (e atualizar-se quando a documentação mudar).
 
 ## Stack acordada
 

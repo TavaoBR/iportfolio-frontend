@@ -19,8 +19,8 @@
 
 ## Tailwind como fonte de tokens
 
-- Estender tema com escala `brand` (50–900) e `fontFamily.sans` alinhada à marca (ex.: Inter + fallbacks `system-ui`).
-- **Regra:** preferir `bg-brand-600`, `text-brand-700`, etc., a cores hex espalhadas nos templates.
+- Quando a identidade estiver fechada: estender tema com escala `brand` (50–900), como em `docs/04`.
+- **Na SPA (`web/`):** até existir essa escala acordada, usar **tema default Flowbite** + utilitários neutros (`gray-*`, `blue-*`); não introduzir paleta `brand-*` arbitrária sem decisão de produto.
 - **Dark mode:** se ativado, usar estratégia `class` (`dark:`) e validar componentes Flowbite; documentar decisão sim/não no repositório de código.
 
 ## Flowbite (Vue)

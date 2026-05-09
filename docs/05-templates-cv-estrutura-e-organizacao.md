@@ -13,7 +13,7 @@ Alinha a **experiência do utilizador** (escolher template, preencher secções,
 
 ## Mapeamento `template_key` → implementação
 
-No código da aplicação (noutro repositório), manter um **registo explícito**:
+No código da aplicação (`web/src/`, módulo de templates), manter um **registo explícito**:
 
 ```ts
 // Conceito — localização real: src/modules/templates/registry.ts

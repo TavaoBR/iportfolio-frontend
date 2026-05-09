@@ -18,7 +18,7 @@ Checklist consolidado para revisão de código e implementação de novas featur
 
 ## Tailwind
 
-- [ ] Tokens semânticos (`brand-*`) em vez de hex repetidos.
+- [ ] Cores: tema Flowbite + Tailwind neutros até existir `brand-*` acordado em `docs/04` / Figma.
 - [ ] Mobile-first: classes base para mobile, prefixos `sm:`/`md:`/`lg:` para maiores.
 - [ ] Evitar `@apply` excessivo que esconda a estrutura visual; usar com moderação em primitivos.
 

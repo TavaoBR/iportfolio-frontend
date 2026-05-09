@@ -1,6 +1,6 @@
 # Contexto iPortfolio — Frontend
 
-Repositório de **documentação oficial** do frontend da plataforma **iPortfolio**: decisões de produto, arquitetura, design system, integração com a API (`iportfolio-api`) e organização dos **templates de currículo** (referências visuais em `templates-cv/`).
+Repositório da plataforma **iPortfolio**: a **especificação oficial** está em [`docs/`](docs/INDICE.md); a **SPA** implementa essa documentação em [`web/`](web/README.md). Complementos: [`contexto/frontend/`](contexto/frontend/INDICE.md) (resumo para IA), `templates-cv/`, `template-plataforma/`.
 
 ## Stack documentada
 
@@ -14,6 +14,18 @@ Repositório de **documentação oficial** do frontend da plataforma **iPortfoli
 | Roteamento | **Vue Router** |
 | Estado global | **Pinia** |
 | HTTP | **Axios** |
+
+## Aplicação (`web/`)
+
+Código da SPA: **Vue 3 + Vite + TypeScript + Tailwind v4 + Flowbite (Vue) + Pinia + Vue Router + Axios**.
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+Detalhes: [web/README.md](web/README.md).
 
 ## Como navegar na documentação
 

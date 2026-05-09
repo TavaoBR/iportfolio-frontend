@@ -50,7 +50,9 @@ Acesso no código: `import.meta.env.VITE_API_BASE_URL`.
 
 ## Estrutura de pastas inicial (recomendada)
 
-Alinhada ao doc **03**; aqui apenas o esqueleto para o primeiro commit:
+Alinhada ao doc **03**; aqui apenas o esqueleto para o primeiro commit.
+
+**Neste repositório:** o código da SPA está em [`web/`](../web/); os caminhos abaixo correspondem a `web/src/`.
 
 ```
 src/

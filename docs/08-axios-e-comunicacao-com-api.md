@@ -46,7 +46,7 @@ Evitar **duplicar** `try/catch` idêntico em cada service: padronizar erro custo
 ```
 services/api/
   http.ts
-  auth.ts          # login, logout, me
+  auth.ts          # registo, login, logout, me
   users.ts
   resumes.ts
   resumeSections.ts

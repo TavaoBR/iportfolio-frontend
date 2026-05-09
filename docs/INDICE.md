@@ -2,6 +2,8 @@
 
 Documentação oficial, organizada por **etapas** e **contexto**. Leitura sugerida na ordem numérica dos primeiros capítulos; os restantes podem ser consultados por tópico.
 
+**Implementação da SPA:** código em [`../web/`](../web/README.md) — deve obedecer a estes `docs/` e a [`../contexto/frontend/`](../contexto/frontend/INDICE.md).
+
 ## Fundação
 
 | Doc | Tema |
