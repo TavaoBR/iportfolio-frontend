@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { FwbButton } from 'flowbite-vue'
+import UiButton from '@/components/ui/UiButton.vue'
 import { useAuthStore } from '@/modules/auth/stores/useAuthStore'
 import { resumeTemplateRegistry } from '@/modules/resume/templates/registry'
 import TemplateCarousel from '@/modules/resume/templates/components/TemplateCarousel.vue'
@@ -11,7 +11,7 @@ const selectedTemplateKey = ref(resumeTemplateRegistry[0]?.key ?? '')
 </script>
 
 <template>
-  <div class="bg-white px-4 py-10 sm:px-6 lg:px-8">
+  <div class="px-4 py-10 sm:px-6 lg:px-8">
     <div class="mx-auto mb-8 max-w-5xl text-center">
       <p class="text-xs font-black uppercase tracking-[0.26em] text-blue-500">Templates profissionais</p>
       <h1 class="mt-3 text-3xl font-black tracking-tight text-slate-950">
@@ -30,8 +30,8 @@ const selectedTemplateKey = ref(resumeTemplateRegistry[0]?.key ?? '')
         Conta necessária para aplicar templates aos CVs e desbloquear premium.
       </p>
       <div class="flex flex-shrink-0 flex-wrap gap-2">
-        <FwbButton :to="{ name: 'register' }" color="blue" size="sm">Registar</FwbButton>
-        <FwbButton :to="{ name: 'login' }" color="alternative" outline size="sm">Entrar</FwbButton>
+        <UiButton :to="{ name: 'register' }" color="blue" size="sm">Registar</UiButton>
+        <UiButton :to="{ name: 'login' }" color="alternative" outline size="sm">Entrar</UiButton>
       </div>
     </div>
 
@@ -45,13 +45,13 @@ const selectedTemplateKey = ref(resumeTemplateRegistry[0]?.key ?? '')
     />
 
     <div class="mt-8 text-center">
-      <FwbButton
-        :to="auth.isAuthenticated ? { name: 'resumes' } : { name: 'login' }"
+      <UiButton
+        :to="auth.isAuthenticated ? { name: 'resume-pick-template' } : { name: 'login' }"
         color="blue"
         class="!rounded-xl !px-6 !py-3 !font-bold"
       >
         {{ auth.isAuthenticated ? 'Usar no construtor' : 'Entrar para usar' }}
-      </FwbButton>
+      </UiButton>
     </div>
   </div>
 </template>

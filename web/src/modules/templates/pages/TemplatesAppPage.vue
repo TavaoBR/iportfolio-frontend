@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { FwbBadge, FwbButton } from 'flowbite-vue'
+import { FwbBadge } from 'flowbite-vue'
+import UiButton from '@/components/ui/UiButton.vue'
 import { useTemplateCheckout } from '@/modules/billing/composables/useTemplateCheckout'
 import { ApiError } from '@/types/api'
 import { resumeTemplateRegistry } from '@/modules/resume/templates/registry'
@@ -28,31 +29,26 @@ async function unlock(key: string) {
 
 <template>
   <div class="grid w-full gap-5 xl:grid-cols-[minmax(0,1fr)_360px]">
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] xl:col-span-2">
+    <section class="ip-card-strong p-5 xl:col-span-2">
       <div class="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-black tracking-tight text-white">Templates</h1>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">
+          <p class="text-xs font-black uppercase tracking-[0.22em] text-[var(--ip-primary)]">Design do currículo</p>
+          <h1 class="mt-2 text-3xl font-black tracking-tight text-slate-950">Templates</h1>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
             Gerencie os templates liberados na sua conta e desbloqueie novos visuais para currículos e portfólios.
           </p>
         </div>
         <RouterLink
           :to="{ name: 'templates-public' }"
-          class="rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-violet-500"
+          class="ip-button-secondary px-4 py-2.5 text-sm"
         >
           Ver catálogo público
         </RouterLink>
       </div>
-      <RouterLink
-        :to="{ name: 'templates-public' }"
-        class="mt-4 inline-block text-sm font-semibold text-violet-300 hover:underline"
-      >
-        Ver catálogo público →
-      </RouterLink>
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] xl:col-span-2">
-      <p v-if="checkoutError" class="mb-3 rounded-xl bg-amber-500/10 p-3 text-sm text-amber-200">
+    <section class="ip-card p-5 xl:col-span-2">
+      <p v-if="checkoutError" class="mb-3 rounded-3xl bg-amber-50 p-3 text-sm font-bold text-amber-700">
         {{ checkoutError }}
       </p>
       <TemplateCarousel
@@ -65,19 +61,19 @@ async function unlock(key: string) {
       />
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    <section class="ip-card p-5">
       <div class="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h2 class="text-base font-black text-white">{{ selectedTemplate?.name }}</h2>
-          <p class="mt-1 text-sm text-gray-500">{{ selectedTemplate?.description }}</p>
+          <h2 class="text-base font-black text-slate-950">{{ selectedTemplate?.name }}</h2>
+          <p class="mt-1 text-sm text-slate-500">{{ selectedTemplate?.description }}</p>
         </div>
-        <FwbBadge v-if="selectedTemplate?.premium" type="dark">Premium</FwbBadge>
-        <FwbBadge v-else type="green">Liberado</FwbBadge>
+        <FwbBadge v-if="selectedTemplate?.premium" type="dark" class="!px-2 !py-0.5 !text-[10px] !font-semibold">Premium</FwbBadge>
+        <FwbBadge v-else type="green" class="!px-2 !py-0.5 !text-[10px] !font-semibold">Liberado</FwbBadge>
       </div>
-      <p class="text-xs font-bold uppercase tracking-[0.18em] text-gray-600">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
         {{ selectedTemplate?.family }} · {{ templates.length }} modelos oficiais
       </p>
-      <FwbButton
+      <UiButton
         v-if="selectedTemplate?.premium"
         class="mt-5 w-full"
         size="sm"
@@ -85,10 +81,10 @@ async function unlock(key: string) {
         @click="unlock(selectedTemplate.key)"
       >
         Ver plano premium
-      </FwbButton>
+      </UiButton>
       <RouterLink
-        :to="{ name: 'resumes' }"
-        class="mt-4 block rounded-xl bg-violet-600 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-violet-500"
+        :to="{ name: 'resume-new', query: { template: selectedTemplateKey } }"
+        class="ip-button-primary mt-4 block px-3 py-2 text-center text-xs font-semibold"
       >
         Criar currículo com este modelo
       </RouterLink>
