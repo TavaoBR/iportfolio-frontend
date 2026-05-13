@@ -6,6 +6,272 @@
 @source '../node_modules/flowbite';
 @source '../node_modules/flowbite-vue';
 
+:root {
+  /* —— Superfície & texto —— */
+  --ip-bg: #eef4f8;
+  --ip-bg-soft: #f7fafc;
+  --ip-surface: #ffffff;
+  --ip-surface-muted: #f2f6f9;
+  --ip-border: #dce7ef;
+  --ip-text: #172033;
+  --ip-muted: #6f7d91;
+  --ip-primary: #3a86ff;
+  --ip-primary-strong: #2563eb;
+  --ip-accent: #0ea5a4;
+  --ip-warning: #f59e0b;
+  --ip-danger: #ef4444;
+
+  /* —— Design system compacto (Linear / Vercel-like) —— */
+  --ip-radius-card: 12px;
+  --ip-radius-card-strong: 16px;
+  --ip-radius-control: 6px;
+  --ip-shadow: 0 12px 40px rgb(15 23 42 / 0.08);
+  --ip-shadow-soft: 0 8px 28px rgb(15 23 42 / 0.06);
+  --ip-control-h: 2rem;
+  --ip-text-ui: 0.8125rem;
+  --ip-text-label: 0.6875rem;
+  --ip-ring-focus: rgb(58 134 255 / 0.22);
+
+  /* —— Inputs (tokens partilhados com UiInput / .ip-input) —— */
+  --ip-input-bg: #ffffff;
+  --ip-input-bg-muted: #fafafa;
+  --ip-input-border: #e5e7eb;
+  --ip-input-border-hover: #d1d5db;
+  --ip-input-radius: var(--ip-radius-control);
+  --ip-input-focus-ring: rgb(58 134 255 / 0.18);
+  --ip-input-placeholder: #94a3b8;
+
+  /* Legado: raio “grande” dos cards utilitários */
+  --ip-radius: var(--ip-radius-card);
+}
+
 body {
   margin: 0;
+  background: var(--ip-bg);
+  color: var(--ip-text);
+  font-size: var(--ip-text-ui);
+  line-height: 1.45;
+}
+
+/* Raiz da app Vue: escala UI compacta */
+.ip-app {
+  font-size: var(--ip-text-ui);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Botões Flowbite via UiButton — densidade premium, foco fino */
+.ip-ui-btn {
+  min-height: var(--ip-control-h);
+  border-radius: var(--ip-radius-control) !important;
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease,
+    box-shadow 0.12s ease,
+    opacity 0.12s ease;
+}
+
+.ip-ui-btn:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--ip-ring-focus) !important;
+}
+
+.ip-ui-btn:focus {
+  --tw-ring-width: 0 !important;
+  --tw-ring-offset-width: 0 !important;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.ip-shell-bg {
+  background:
+    radial-gradient(circle at 18% 12%, rgb(58 134 255 / 0.16), transparent 28rem),
+    radial-gradient(circle at 86% 4%, rgb(14 165 164 / 0.12), transparent 26rem),
+    linear-gradient(180deg, #f7fbff 0%, var(--ip-bg) 42%, #eaf2f7 100%);
+}
+
+.ip-card {
+  border: 1px solid var(--ip-border);
+  border-radius: var(--ip-radius-card);
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: var(--ip-shadow-soft);
+}
+
+.ip-card-strong {
+  border: 1px solid rgb(255 255 255 / 0.74);
+  border-radius: var(--ip-radius-card-strong);
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.96), rgb(244 249 252 / 0.9));
+  box-shadow: var(--ip-shadow);
+}
+
+.ip-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ip-control-h);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--ip-radius-control);
+  background: var(--ip-primary);
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  transition:
+    background 0.12s ease,
+    box-shadow 0.12s ease,
+    opacity 0.12s ease;
+  box-shadow: 0 4px 14px rgb(58 134 255 / 0.22);
+}
+
+.ip-button-primary:hover {
+  background: var(--ip-primary-strong);
+}
+
+.ip-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ip-control-h);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--ip-border);
+  border-radius: var(--ip-radius-control);
+  background: rgb(255 255 255 / 0.9);
+  color: var(--ip-text);
+  font-weight: 600;
+  font-size: 0.75rem;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+}
+
+.ip-button-secondary:hover {
+  border-color: rgb(58 134 255 / 0.35);
+  box-shadow: var(--ip-shadow-soft);
+}
+
+.ip-input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--ip-control-h);
+  border: 1px solid var(--ip-input-border);
+  border-radius: var(--ip-input-radius);
+  background: var(--ip-input-bg);
+  padding: 0.3125rem 0.625rem;
+  font-size: var(--ip-text-ui);
+  line-height: 1.35;
+  color: var(--ip-text);
+  outline: none;
+  box-shadow: none;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.12s ease;
+}
+
+.ip-input::placeholder {
+  color: var(--ip-input-placeholder);
+  font-size: 0.75rem;
+}
+
+.ip-input:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--ip-input-border-hover);
+  background: var(--ip-input-bg-muted);
+}
+
+.ip-input:focus,
+.ip-input:focus-visible {
+  border-color: var(--ip-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px var(--ip-input-focus-ring);
+}
+
+.ip-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  background: var(--ip-input-bg-muted);
+  border-color: var(--ip-input-border);
+}
+
+.ip-label {
+  margin-bottom: 0.25rem;
+  display: block;
+  font-size: var(--ip-text-label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #475569;
+}
+
+.ip-scrollbar-hidden {
+  scrollbar-width: none;
+}
+
+.ip-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Construtor de CV: inputs compactos sem alterar .ip-input noutras áreas */
+.resume-builder-compact {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.resume-builder-compact .ip-input {
+  padding: 0.4rem 0.6rem;
+  border-radius: 7px;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  min-height: 2.125rem;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.resume-builder-compact .ip-label {
+  margin-bottom: 0.18rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #4b5563;
+}
+
+.resume-builder-compact textarea.ip-input {
+  min-height: 4.75rem;
+  resize: vertical;
+}
+
+.resume-builder-compact .ip-input:focus,
+.resume-builder-compact .ip-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ip-input-focus-ring);
+}
+
+/* Secções tipo lista JobsSpark + checkboxes alinhados a inputs */
+.ip-form-checkbox {
+  border: 1px solid var(--ip-input-border);
+  border-radius: var(--ip-input-radius);
+  padding: 0.45rem 0.65rem;
+  background: var(--ip-input-bg);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.ip-form-accordion-trigger:hover {
+  background: var(--ip-input-bg-muted);
+}
+
+.ip-form-accordion-trigger:focus-visible {
+  outline: 2px solid var(--ip-primary);
+  outline-offset: 2px;
 }
