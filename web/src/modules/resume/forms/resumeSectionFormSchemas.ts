@@ -14,10 +14,16 @@ export const resumeSectionSchemas: Record<ResumeSectionType, ResumeSectionFormSc
     label: 'Dados pessoais',
     defaultTitle: 'Dados de contato',
     fields: [
-      { key: 'name', label: 'Nome completo', type: 'text', required: true, placeholder: 'Ex.: James Gustavo' },
-      { key: 'email', label: 'E-mail', type: 'text', required: true, placeholder: 'seu@email.com' },
-      { key: 'phone', label: 'Telefone', type: 'text', placeholder: '(00) 00000-0000' },
-      { key: 'headline', label: 'Cargo ou objetivo', type: 'text', placeholder: 'Ex.: Desenvolvedor Frontend' },
+      {
+        key: 'headline',
+        label: 'Tagline ou slogan no CV',
+        type: 'text',
+        width: 'full',
+        placeholder: 'ex.: foco em produto e equipas ágeis',
+      },
+      { key: 'name', label: 'Nome completo', type: 'text', required: true, width: 'half', placeholder: 'nome e apelido' },
+      { key: 'email', label: 'E-mail', type: 'text', required: true, width: 'half', placeholder: 'seu@email.com' },
+      { key: 'phone', label: 'Telefone', type: 'text', width: 'full', placeholder: '(00) 00000-0000' },
     ],
   },
   professional_summary: {
@@ -27,10 +33,12 @@ export const resumeSectionSchemas: Record<ResumeSectionType, ResumeSectionFormSc
     fields: [
       {
         key: 'summary',
-        label: 'Resumo profissional',
+        label: 'Objetivos e resumo de carreira',
         type: 'textarea',
         required: true,
-        placeholder: 'Descreva seu perfil profissional em 2 ou 3 frases.',
+        width: 'full',
+        hint: true,
+        placeholder: 'descreva o seu perfil e objetivos em poucas frases.',
       },
     ],
   },
@@ -127,8 +135,8 @@ export const resumeSectionSchemas: Record<ResumeSectionType, ResumeSectionFormSc
   },
   links: {
     key: 'links',
-    label: 'Links',
-    defaultTitle: 'Links',
+    label: 'Redes sociais',
+    defaultTitle: 'Redes e links',
     fields: [
       { key: 'label', label: 'Nome do link', type: 'text', required: true, placeholder: 'Ex.: LinkedIn' },
       { key: 'url', label: 'URL', type: 'url', required: true, placeholder: 'https://...' },

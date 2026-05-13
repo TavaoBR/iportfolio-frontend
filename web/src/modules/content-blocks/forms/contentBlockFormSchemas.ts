@@ -14,6 +14,10 @@ export interface DynamicFieldSchema {
   required?: boolean
   placeholder?: string
   options?: DynamicFieldOption[]
+  /** Largura na grelha do renderizador (ex.: referência tipo JobsSpark) */
+  width?: 'full' | 'half'
+  /** Mostrar ícone de ajuda ao lado do label (ex.: tooltip) */
+  hint?: boolean
 }
 
 export interface ContentBlockFormSchema {
