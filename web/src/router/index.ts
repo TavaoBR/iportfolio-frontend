@@ -70,43 +70,100 @@ export const router = createRouter({
         {
           path: '',
           name: 'dashboard',
-          meta: { title: 'Visão geral' },
+          meta: {
+            title: 'Visão geral',
+            breadcrumb: [{ label: 'Visão geral' }],
+          },
           component: () => import('@/pages/DashboardPage.vue'),
         },
         {
           path: 'content-blocks',
           name: 'content-blocks',
-          meta: { title: 'Informações profissionais' },
+          meta: {
+            title: 'Informações profissionais',
+            breadcrumb: [
+              { label: 'Perfil profissional', to: { name: 'profile' } },
+              { label: 'Informações profissionais' },
+            ],
+          },
           component: () => import('@/modules/content-blocks/pages/ContentBlocksPage.vue'),
         },
         {
           path: 'resumes',
           name: 'resumes',
-          meta: { title: 'Currículo' },
+          meta: {
+            title: 'Currículo',
+            breadcrumb: [{ label: 'Currículo' }],
+          },
           component: () => import('@/modules/resume/pages/ResumeListPage.vue'),
+        },
+        {
+          path: 'resumes/new/template',
+          name: 'resume-pick-template',
+          meta: {
+            title: 'Escolher modelo',
+            resumeEditorShell: true,
+            breadcrumb: [
+              { label: 'Currículo', to: { name: 'resumes' } },
+              { label: 'Escolher modelo' },
+            ],
+          },
+          component: () => import('@/modules/resume/pages/ResumeTemplatePickerPage.vue'),
+        },
+        {
+          path: 'resumes/new',
+          name: 'resume-new',
+          meta: {
+            title: 'Novo CV',
+            resumeEditorShell: true,
+            breadcrumb: [
+              { label: 'Currículo', to: { name: 'resumes' } },
+              { label: 'Criar currículo' },
+            ],
+          },
+          component: () => import('@/modules/resume/pages/ResumeBuilderPage.vue'),
         },
         {
           path: 'resumes/:publicId',
           name: 'resume-edit',
-          meta: { title: 'Editor de CV' },
-          component: () => import('@/modules/resume/pages/ResumeEditPage.vue'),
+          meta: {
+            title: 'Editor de CV',
+            resumeEditorShell: true,
+            breadcrumb: [
+              { label: 'Currículo', to: { name: 'resumes' } },
+              { label: 'Editar currículo' },
+            ],
+          },
+          component: () => import('@/modules/resume/pages/ResumeBuilderPage.vue'),
         },
         {
           path: 'templates',
           name: 'templates-app',
-          meta: { title: 'Templates e visual' },
+          meta: {
+            title: 'Templates e visual',
+            breadcrumb: [
+              { label: 'Currículo', to: { name: 'resumes' } },
+              { label: 'Templates e visual' },
+            ],
+          },
           component: () => import('@/modules/templates/pages/TemplatesAppPage.vue'),
         },
         {
           path: 'portfolio',
           name: 'portfolio',
-          meta: { title: 'Portfólio' },
+          meta: {
+            title: 'Portfólio',
+            breadcrumb: [{ label: 'Portfólio' }],
+          },
           component: () => import('@/modules/portfolio/pages/PortfolioEditorPage.vue'),
         },
         {
           path: 'profile',
           name: 'profile',
-          meta: { title: 'Dados pessoais' },
+          meta: {
+            title: 'Dados pessoais',
+            breadcrumb: [{ label: 'Dados pessoais' }],
+          },
           component: () => import('@/modules/profile/pages/ProfilePage.vue'),
         },
       ],
