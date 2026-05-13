@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { FwbButton, FwbInput } from 'flowbite-vue'
+import UiButton from '@/components/ui/UiButton.vue'
+import UiInput from '@/components/ui/UiInput.vue'
 import { useAsyncData } from '@/composables/useAsyncData'
 import { getResume, getResumePdf, updateResume } from '../services/resumesApi'
 import {
@@ -317,14 +318,14 @@ async function downloadPdf() {
       </p>
 
       <form v-else class="mt-6 space-y-4" @submit.prevent="saveResume">
-        <FwbInput
+        <UiInput
           v-model="resumeForm.title"
           label="Título"
           input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
           label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
           required
         />
-        <FwbInput
+        <UiInput
           v-model="resumeForm.target_role"
           label="Cargo alvo"
           input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
@@ -368,18 +369,17 @@ async function downloadPdf() {
         </div>
 
         <div class="grid gap-3 sm:grid-cols-2">
-          <FwbButton type="submit" color="purple" class="!rounded-xl !py-3 !font-bold" :loading="savingResume">
+          <UiButton type="submit" color="purple" :loading="savingResume">
             Salvar CV
-          </FwbButton>
-          <FwbButton
+          </UiButton>
+          <UiButton
             type="button"
             color="alternative"
-            class="!rounded-xl !py-3 !font-bold"
             :loading="downloadingPdf"
             @click="downloadPdf"
           >
             PDF
-          </FwbButton>
+          </UiButton>
         </div>
       </form>
 
@@ -391,10 +391,12 @@ async function downloadPdf() {
           </div>
         </div>
         <ResumeTemplateRenderer
+          :template-key="resume?.template_key"
           :resume="resume"
           :sections="sections"
           :profile="profile"
           :user="auth.user"
+          :profile-photo-url="auth.user?.avatar ?? undefined"
           :scale="0.37"
         />
       </div>
@@ -423,7 +425,7 @@ async function downloadPdf() {
                 </option>
               </select>
             </label>
-            <FwbInput
+            <UiInput
               v-model="newSectionTitle"
               label="Título da secção"
               input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
@@ -474,7 +476,7 @@ async function downloadPdf() {
                 {{ field.label }}
               </label>
 
-              <FwbInput
+              <UiInput
                 v-else
                 :model-value="newSectionInputValue(field)"
                 :label="field.label"
@@ -488,9 +490,9 @@ async function downloadPdf() {
             </template>
 
             <div class="mt-3 flex justify-end">
-              <FwbButton type="submit" color="purple" class="!rounded-xl !px-5 !font-bold" :loading="creatingSection">
+              <UiButton type="submit" color="purple" :loading="creatingSection">
                 Adicionar secção
-              </FwbButton>
+              </UiButton>
             </div>
           </div>
         </form>
@@ -540,7 +542,7 @@ async function downloadPdf() {
                     </option>
                   </select>
                 </label>
-                <FwbInput
+                <UiInput
                   v-model="sectionDrafts[section.id].title"
                   label="Título"
                   input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
@@ -600,7 +602,7 @@ async function downloadPdf() {
                       {{ field.label }}
                     </label>
 
-                    <FwbInput
+                    <UiInput
                       v-else
                       :model-value="sectionInputValue(section.id, field)"
                       :label="field.label"
@@ -614,26 +616,24 @@ async function downloadPdf() {
                   </template>
                 </div>
                 <div class="mt-3 flex flex-wrap justify-end gap-2">
-                  <FwbButton
+                  <UiButton
                     type="button"
                     size="sm"
                     color="alternative"
-                    class="!rounded-xl"
                     :loading="deletingSectionId === section.id"
                     @click="removeSection(section.id)"
                   >
                     Remover
-                  </FwbButton>
-                  <FwbButton
+                  </UiButton>
+                  <UiButton
                     type="button"
                     size="sm"
                     color="purple"
-                    class="!rounded-xl"
                     :loading="savingSectionId === section.id"
                     @click="saveSection(section.id)"
                   >
                     Salvar secção
-                  </FwbButton>
+                  </UiButton>
                 </div>
               </div>
             </div>
