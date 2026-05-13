@@ -1,0 +1,11 @@
+/**
+ * Tokens partilhados pelos layouts de currículo (folha A4).
+ * Importar no `ResumeTemplateRenderer` ou nos layouts.
+ */
+.resume-template-tokens {
+  --rt-font-display: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rt-font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rt-tracking-overline: 0.28em;
+  --rt-radius-bar: 2px;
+  --rt-shadow-sheet: 0 18px 48px rgb(15 23 42 / 0.08);
+}
