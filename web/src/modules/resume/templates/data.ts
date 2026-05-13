@@ -1,5 +1,25 @@
 import type { ResumeTemplateData, ResumeTemplateEntry, ResumeTemplateRendererContext, ResumeTemplateSkill } from './types'
 import type { ResumeSection } from '../types/resume.types'
+import { getResumeTemplateDefinition } from './registry'
+
+/**
+ * Agrega `Resume` + `ResumeSection[]` em `ResumeTemplateData` plano consumido pelos `.vue` dos modelos.
+ * O ficheiro `mapping.ts` em cada pasta sob `web/src/modelos/resume/` descreve intenção de layout (região/componente);
+ * a ponte para render dinâmico por `mapping` é evolução futura (ver `ResumeTemplateMapping`).
+ */
+
+function resolveTemplatePhotoUrl(context: ResumeTemplateRendererContext): string | null {
+  const def = getResumeTemplateDefinition(context.templateKey ?? context.resume?.template_key)
+  if (!def.capabilities?.supportsPhoto) return null
+
+  const raw = context.profilePhotoUrl
+  if (raw === undefined) {
+    const a = context.user?.avatar
+    return typeof a === 'string' && a.trim() ? a.trim() : null
+  }
+  if (typeof raw === 'string' && raw.trim()) return raw.trim()
+  return null
+}
 
 const emptyData: ResumeTemplateData = {
   name: 'Seu nome',
@@ -7,6 +27,7 @@ const emptyData: ResumeTemplateData = {
   email: 'seu@email.com',
   phone: '(00) 00000-0000',
   location: 'Cidade, Estado',
+  photoUrl: null,
   links: [],
   summary: 'Adicione um resumo profissional para apresentar sua trajetória, principais competências e objetivo.',
   experiences: [],
@@ -175,6 +196,7 @@ export function createResumeTemplateData(context: ResumeTemplateRendererContext)
       [context.profile?.city, context.profile?.state, context.profile?.country].filter(Boolean).join(', ') ||
       context.fallback?.location ||
       emptyData.location,
+    photoUrl: resolveTemplatePhotoUrl(context),
     links: [
       context.profile?.linkedin_url,
       context.profile?.github_url,
