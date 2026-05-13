@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { FwbButton, FwbInput } from 'flowbite-vue'
+import UiButton from '@/components/ui/UiButton.vue'
+import UiInput from '@/components/ui/UiInput.vue'
 import { useAsyncData } from '@/composables/useAsyncData'
 import { certificationsApi } from '../services/certificationsApi'
 import { educationsApi } from '../services/educationsApi'
@@ -157,36 +158,36 @@ onMounted(() => {
 
 <template>
   <div class="grid gap-5 xl:grid-cols-[360px_minmax(0,1fr)]">
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5">
-      <h1 class="text-xl font-black text-white">Adicionar ao perfil</h1>
-      <p class="mt-1 text-sm text-gray-500">
+    <section class="ip-card-strong p-5">
+      <h1 class="text-xl font-black text-slate-950">Adicionar ao perfil</h1>
+      <p class="mt-1 text-sm text-slate-500">
         Essas informações alimentam automaticamente seus currículos e portfólios.
       </p>
 
       <form class="mt-5 space-y-4" @submit.prevent="createBlock">
         <template v-for="field in activeConfig.fields" :key="field.key">
           <label v-if="field.type === 'textarea'" class="block">
-            <span class="mb-1.5 block text-xs font-bold text-gray-200">
-              {{ field.label }}<b v-if="field.required" class="text-violet-300"> *</b>
+            <span class="ip-label">
+              {{ field.label }}<b v-if="field.required" class="text-blue-500"> *</b>
             </span>
             <textarea
               :value="inputValue(field)"
               :placeholder="field.placeholder"
               :required="field.required"
               rows="5"
-              class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none placeholder:text-gray-600 focus:border-violet-500"
+              class="ip-input text-sm"
               @input="setInputValue(field, ($event.target as HTMLTextAreaElement).value)"
             />
           </label>
 
           <label v-else-if="field.type === 'select'" class="block">
-            <span class="mb-1.5 block text-xs font-bold text-gray-200">
-              {{ field.label }}<b v-if="field.required" class="text-violet-300"> *</b>
+            <span class="ip-label">
+              {{ field.label }}<b v-if="field.required" class="text-blue-500"> *</b>
             </span>
             <select
               :value="inputValue(field)"
               :required="field.required"
-              class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-violet-500"
+              class="ip-input text-sm"
               @change="setInputValue(field, ($event.target as HTMLSelectElement).value)"
             >
               <option value="">Selecionar</option>
@@ -196,86 +197,83 @@ onMounted(() => {
             </select>
           </label>
 
-          <label v-else-if="field.type === 'checkbox'" class="flex items-center gap-2 text-sm text-gray-300">
+          <label v-else-if="field.type === 'checkbox'" class="flex items-center gap-2 text-sm font-bold text-slate-600">
             <input
               type="checkbox"
               :checked="checkboxValue(field)"
-              class="rounded border-white/20 bg-black/30 text-violet-600 focus:ring-violet-600"
+              class="rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-600"
               @change="setCheckboxValue(field, ($event.target as HTMLInputElement).checked)"
             />
             {{ field.label }}
           </label>
 
-          <FwbInput
+          <UiInput
             v-else
             :model-value="inputValue(field)"
             :label="field.label"
             :type="field.type"
             :placeholder="field.placeholder"
             :required="field.required"
-            input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-            label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
             @update:model-value="setInputValue(field, String($event ?? ''))"
           />
         </template>
 
-        <p v-if="actionError" class="rounded-xl bg-red-500/10 p-3 text-sm text-red-200">{{ actionError }}</p>
-        <p v-if="actionMessage" class="rounded-xl bg-green-500/10 p-3 text-sm text-green-200">{{ actionMessage }}</p>
+        <p v-if="actionError" class="rounded-3xl bg-red-50 p-3 text-sm font-bold text-red-600">{{ actionError }}</p>
+        <p v-if="actionMessage" class="rounded-3xl bg-emerald-50 p-3 text-sm font-bold text-emerald-700">{{ actionMessage }}</p>
 
-        <FwbButton type="submit" color="purple" class="w-full !rounded-xl !py-3 !font-bold" :loading="saving">
+        <UiButton type="submit" color="blue" class="w-full" :loading="saving">
           Adicionar
-        </FwbButton>
+        </UiButton>
       </form>
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5">
+    <section class="ip-card p-5">
       <div class="mb-5">
-        <h2 class="text-xl font-black text-white">Informações profissionais</h2>
-        <p class="mt-1 text-sm text-gray-500">Resumo, skills, experiências, formação, projetos e certificações em um único lugar.</p>
+        <h2 class="text-xl font-black text-slate-950">Informações profissionais</h2>
+        <p class="mt-1 text-sm text-slate-500">Resumo, skills, experiências, formação, projetos e certificações em um único lugar.</p>
       </div>
 
       <div class="mb-5 flex flex-wrap gap-2">
-      <FwbButton
+      <UiButton
         v-for="tab in tabs"
         :key="tab.key"
         size="sm"
-        :color="activeTab === tab.key ? 'purple' : 'alternative'"
+        :color="activeTab === tab.key ? 'blue' : 'alternative'"
         :outline="activeTab !== tab.key"
         @click="selectTab(tab.key)"
       >
         {{ tab.label }}
-      </FwbButton>
+      </UiButton>
       </div>
 
       <div v-if="loading" class="grid gap-3 md:grid-cols-2">
-        <div v-for="n in 4" :key="n" class="h-28 animate-pulse rounded-2xl bg-white/10" />
+        <div v-for="n in 4" :key="n" class="h-28 animate-pulse rounded-3xl bg-slate-100" />
       </div>
-      <p v-else-if="error" class="rounded-xl bg-red-500/10 p-4 text-sm text-red-200">{{ error }}</p>
+      <p v-else-if="error" class="rounded-3xl bg-red-50 p-4 text-sm font-bold text-red-600">{{ error }}</p>
       <div v-else-if="(data?.length ?? 0) > 0" class="grid gap-3 md:grid-cols-2 2xl:grid-cols-3">
         <article
           v-for="entity in data"
           :key="entity.id"
-          class="rounded-2xl border border-white/10 bg-black/20 p-4"
+          class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm"
         >
-          <p class="font-black text-white">{{ entityTitle(entity) }}</p>
-          <p v-if="entitySubtitle(entity)" class="mt-1 text-sm text-gray-400">{{ entitySubtitle(entity) }}</p>
-          <p v-if="entityDescription(entity)" class="mt-3 line-clamp-3 text-sm text-gray-500">
+          <p class="font-black text-slate-950">{{ entityTitle(entity) }}</p>
+          <p v-if="entitySubtitle(entity)" class="mt-1 text-sm text-slate-500">{{ entitySubtitle(entity) }}</p>
+          <p v-if="entityDescription(entity)" class="mt-3 line-clamp-3 text-sm text-slate-500">
             {{ entityDescription(entity) }}
           </p>
           <div class="mt-4 flex justify-end">
-            <FwbButton
+            <UiButton
               size="xs"
               color="alternative"
-              class="!rounded-xl"
               :loading="removingId === entity.id"
               @click="removeBlock(entity.id)"
             >
               Remover
-            </FwbButton>
+            </UiButton>
           </div>
         </article>
       </div>
-      <p v-else class="rounded-2xl border border-dashed border-white/10 p-8 text-center text-sm text-gray-500">
+      <p v-else class="rounded-3xl border border-dashed border-slate-200 p-8 text-center text-sm text-slate-500">
         Nenhuma informação cadastrada nesta categoria.
       </p>
     </section>

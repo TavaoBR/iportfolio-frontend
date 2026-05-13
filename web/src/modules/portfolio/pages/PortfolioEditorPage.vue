@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import { FwbButton, FwbInput } from 'flowbite-vue'
+import UiButton from '@/components/ui/UiButton.vue'
+import UiInput from '@/components/ui/UiInput.vue'
 import { useAsyncData } from '@/composables/useAsyncData'
 import {
   createPortfolioSite,
@@ -183,107 +184,97 @@ async function removeSection(sectionId: number) {
 
 <template>
   <div class="grid gap-5 xl:grid-cols-[360px_minmax(0,1fr)]">
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5">
+    <section class="ip-card p-5">
       <div class="mb-5 flex items-center justify-between gap-3">
         <div>
-          <h1 class="text-xl font-black text-white">Portfólios</h1>
-          <p class="mt-1 text-sm text-gray-500">Crie e publique seu site profissional.</p>
+          <h1 class="text-xl font-black text-slate-950">Portfólios</h1>
+          <p class="mt-1 text-sm text-slate-500">Crie e publique seu site profissional.</p>
         </div>
-        <button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-gray-300" @click="newSite">
+        <button class="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600" @click="newSite">
           Novo
         </button>
       </div>
 
       <div v-if="loading" class="space-y-3">
-        <div v-for="n in 3" :key="n" class="h-20 animate-pulse rounded-2xl bg-white/10" />
+        <div v-for="n in 3" :key="n" class="h-20 animate-pulse rounded-3xl bg-slate-100" />
       </div>
-      <p v-else-if="error" class="rounded-xl bg-red-500/10 p-4 text-sm text-red-200">{{ error }}</p>
+      <p v-else-if="error" class="rounded-3xl bg-red-50 p-4 text-sm font-bold text-red-600">{{ error }}</p>
       <div v-else class="space-y-3">
         <button
           v-for="site in data ?? []"
           :key="site.id"
           type="button"
           class="w-full rounded-2xl border p-4 text-left transition"
-          :class="selectedId === site.id ? 'border-violet-600 bg-violet-600/10' : 'border-white/10 bg-black/20 hover:bg-white/5'"
+          :class="selectedId === site.id ? 'border-blue-400 bg-blue-50' : 'border-slate-200 bg-white hover:border-blue-200'"
           @click="selectedId = site.id"
         >
-          <span class="block font-black text-white">{{ site.title }}</span>
-          <span class="mt-1 block text-xs text-gray-500">/{{ site.slug }}</span>
+          <span class="block font-black text-slate-950">{{ site.title }}</span>
+          <span class="mt-1 block text-xs text-slate-500">/{{ site.slug }}</span>
         </button>
-        <p v-if="!(data?.length)" class="rounded-2xl border border-dashed border-white/10 p-6 text-center text-sm text-gray-500">
+        <p v-if="!(data?.length)" class="rounded-3xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">
           Nenhum portfólio criado ainda.
         </p>
       </div>
     </section>
 
     <section class="space-y-5">
-      <div class="rounded-2xl border border-white/10 bg-[#111019] p-5">
-        <h2 class="text-xl font-black text-white">{{ selectedId ? 'Editar portfólio' : 'Criar portfólio' }}</h2>
+      <div class="ip-card-strong p-5">
+        <h2 class="text-xl font-black text-slate-950">{{ selectedId ? 'Editar portfólio' : 'Criar portfólio' }}</h2>
 
         <form class="mt-5 grid gap-4 lg:grid-cols-2" @submit.prevent="saveSite">
-          <FwbInput
+          <UiInput
             v-model="siteForm.title"
             label="Título"
-            input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-            label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
             required
           />
-          <FwbInput
+          <UiInput
             v-model="siteForm.slug"
             label="Slug"
             placeholder="meu-portfolio"
-            input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-            label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
             required
           />
-          <FwbInput
+          <UiInput
             v-model="siteForm.subtitle"
             label="Subtítulo"
-            input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-            label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
           />
-          <FwbInput
+          <UiInput
             v-model="siteForm.template_key"
             label="Template key"
-            input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-            label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
           />
-          <label class="flex items-center gap-2 text-sm text-gray-300">
-            <input v-model="siteForm.is_public" type="checkbox" class="rounded border-white/20 bg-black/30 text-violet-600 focus:ring-violet-600" />
+          <label class="flex items-center gap-2 text-sm font-bold text-slate-600">
+            <input v-model="siteForm.is_public" type="checkbox" class="rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-600" />
             Público
           </label>
           <div class="flex flex-wrap justify-end gap-2 lg:col-span-2">
-            <FwbButton v-if="selectedId" type="button" color="alternative" class="!rounded-xl" :loading="publishing" @click="publishSite">
+            <UiButton v-if="selectedId" type="button" color="alternative" :loading="publishing" @click="publishSite">
               Publicar
-            </FwbButton>
-            <FwbButton type="submit" color="purple" class="!rounded-xl !font-bold" :loading="savingSite">
+            </UiButton>
+            <UiButton type="submit" color="blue" :loading="savingSite">
               Salvar portfólio
-            </FwbButton>
+            </UiButton>
           </div>
         </form>
 
-        <p v-if="actionError" class="mt-4 rounded-xl bg-red-500/10 p-3 text-sm text-red-200">{{ actionError }}</p>
-        <p v-if="actionMessage" class="mt-4 rounded-xl bg-green-500/10 p-3 text-sm text-green-200">{{ actionMessage }}</p>
+        <p v-if="actionError" class="mt-4 rounded-3xl bg-red-50 p-3 text-sm font-bold text-red-600">{{ actionError }}</p>
+        <p v-if="actionMessage" class="mt-4 rounded-3xl bg-emerald-50 p-3 text-sm font-bold text-emerald-700">{{ actionMessage }}</p>
       </div>
 
-      <div class="rounded-2xl border border-white/10 bg-[#111019] p-5">
-        <h2 class="text-xl font-black text-white">Secções do portfólio</h2>
-        <p class="mt-1 text-sm text-gray-500">Defina quais blocos aparecem na página pública.</p>
+      <div class="ip-card p-5">
+        <h2 class="text-xl font-black text-slate-950">Secções do portfólio</h2>
+        <p class="mt-1 text-sm text-slate-500">Defina quais blocos aparecem na página pública.</p>
 
         <form class="mt-5 grid gap-4 lg:grid-cols-[1fr_180px_auto]" @submit.prevent="addSection">
-          <FwbInput
+          <UiInput
             v-model="sectionForm.section_type"
             label="Tipo"
             placeholder="projects"
-            input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-            label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
             required
           />
           <label class="block">
-            <span class="mb-1.5 block text-xs font-bold text-gray-200">Layout</span>
+            <span class="ip-label">Layout</span>
             <select
               v-model="sectionForm.layout_type"
-              class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-violet-500"
+              class="ip-input text-sm"
             >
               <option value="grid">Grid</option>
               <option value="list">Lista</option>
@@ -293,27 +284,27 @@ async function removeSection(sectionId: number) {
             </select>
           </label>
           <div class="flex items-end">
-            <FwbButton type="submit" color="purple" class="w-full !rounded-xl !font-bold" :loading="creatingSection" :disabled="!selectedId">
+            <UiButton type="submit" color="blue" class="w-full" :loading="creatingSection" :disabled="!selectedId">
               Adicionar
-            </FwbButton>
+            </UiButton>
           </div>
         </form>
 
         <div class="mt-5">
-          <div v-if="sectionsLoading" class="h-28 animate-pulse rounded-2xl bg-white/10" />
-          <p v-else-if="sectionsError" class="rounded-xl bg-red-500/10 p-4 text-sm text-red-200">{{ sectionsError }}</p>
+          <div v-if="sectionsLoading" class="h-28 animate-pulse rounded-3xl bg-slate-100" />
+          <p v-else-if="sectionsError" class="rounded-3xl bg-red-50 p-4 text-sm font-bold text-red-600">{{ sectionsError }}</p>
           <div v-else-if="(sections?.length ?? 0) > 0" class="grid gap-3 md:grid-cols-2">
-            <article v-for="section in sections" :key="section.id" class="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p class="font-black text-white">{{ section.section_type }}</p>
-              <p class="mt-1 text-xs text-gray-500">{{ section.layout_type }}</p>
+            <article v-for="section in sections" :key="section.id" class="rounded-3xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-950">{{ section.section_type }}</p>
+              <p class="mt-1 text-xs text-slate-500">{{ section.layout_type }}</p>
               <div class="mt-4 flex justify-end">
-                <FwbButton size="xs" color="alternative" class="!rounded-xl" :loading="deletingSectionId === section.id" @click="removeSection(section.id)">
+                <UiButton size="xs" color="alternative" :loading="deletingSectionId === section.id" @click="removeSection(section.id)">
                   Remover
-                </FwbButton>
+                </UiButton>
               </div>
             </article>
           </div>
-          <p v-else class="rounded-2xl border border-dashed border-white/10 p-8 text-center text-sm text-gray-500">
+          <p v-else class="rounded-3xl border border-dashed border-slate-200 p-8 text-center text-sm text-slate-500">
             Selecione ou crie um portfólio para adicionar secções.
           </p>
         </div>

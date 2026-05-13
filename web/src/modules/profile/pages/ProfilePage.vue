@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { FwbButton, FwbInput } from 'flowbite-vue'
+import UiButton from '@/components/ui/UiButton.vue'
+import UiInput from '@/components/ui/UiInput.vue'
 import { useAsyncData } from '@/composables/useAsyncData'
 import { getProfile, upsertProfile } from '../services/profileApi'
 import type { UserProfile } from '../types/profile.types'
@@ -85,110 +86,94 @@ async function saveProfile() {
 
 <template>
   <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_360px]">
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5">
-      <h1 class="text-2xl font-black text-white">Dados pessoais</h1>
-      <p class="mt-1 text-sm text-gray-500">
+    <section class="ip-card-strong p-5">
+      <h1 class="text-2xl font-black text-slate-950">Dados pessoais</h1>
+      <p class="mt-1 text-sm text-slate-500">
         Essa é a base do seu perfil profissional. O currículo e o portfólio usam essas informações.
       </p>
 
-      <div v-if="loading" class="mt-6 h-64 animate-pulse rounded-2xl bg-white/10" />
-      <p v-else-if="error" class="mt-6 rounded-xl bg-red-500/10 p-4 text-sm text-red-200">
+      <div v-if="loading" class="mt-6 h-64 animate-pulse rounded-3xl bg-slate-100" />
+      <p v-else-if="error" class="mt-6 rounded-3xl bg-red-50 p-4 text-sm font-bold text-red-600">
         {{ error }}
       </p>
 
       <form v-else class="mt-6 grid gap-5 lg:grid-cols-2" @submit.prevent="saveProfile">
-        <FwbInput
+        <UiInput
           v-model="form.headline"
           label="Headline"
           placeholder="Ex.: Desenvolvedor Frontend Vue.js"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.phone"
           label="Telefone"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.city"
           label="Cidade"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.state"
           label="Estado"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.country"
           label="País"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.website_url"
           label="Website"
           type="url"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.linkedin_url"
           label="LinkedIn"
           type="url"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
-        <FwbInput
+        <UiInput
           v-model="form.github_url"
           label="GitHub"
           type="url"
-          input-class="!rounded-xl !border-white/10 !bg-black/30 !px-4 !py-3 !text-sm !text-white placeholder:!text-gray-600"
-          label-class="!mb-1.5 !text-xs !font-bold !text-gray-200"
         />
         <label class="block lg:col-span-2">
-          <span class="mb-1.5 block text-xs font-bold text-gray-200">Bio</span>
+          <span class="ip-label">Bio</span>
           <textarea
             v-model="form.bio"
             rows="7"
-            class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none placeholder:text-gray-600 focus:border-violet-500"
+            class="ip-input text-sm"
           />
         </label>
 
-        <p v-if="actionError" class="rounded-xl bg-red-500/10 p-3 text-sm text-red-200 lg:col-span-2">
+        <p v-if="actionError" class="rounded-3xl bg-red-50 p-3 text-sm font-bold text-red-600 lg:col-span-2">
           {{ actionError }}
         </p>
-        <p v-if="actionMessage" class="rounded-xl bg-green-500/10 p-3 text-sm text-green-200 lg:col-span-2">
+        <p v-if="actionMessage" class="rounded-3xl bg-emerald-50 p-3 text-sm font-bold text-emerald-700 lg:col-span-2">
           {{ actionMessage }}
         </p>
 
         <div class="lg:col-span-2">
-          <FwbButton type="submit" color="purple" class="!rounded-xl !px-5 !py-3 !font-bold" :loading="saving">
+          <UiButton type="submit" color="blue" :loading="saving">
             Salvar perfil
-          </FwbButton>
+          </UiButton>
         </div>
       </form>
     </section>
 
-    <aside class="rounded-2xl border border-white/10 bg-[#111019] p-5">
-      <h2 class="text-xl font-black text-white">Resumo</h2>
+    <aside class="ip-card p-5">
+      <h2 class="text-xl font-black text-slate-950">Resumo</h2>
       <div class="mt-5 space-y-4 text-sm">
         <div>
-          <p class="text-gray-500">Headline</p>
-          <p class="mt-1 font-semibold text-white">{{ form.headline || 'Não definida' }}</p>
+          <p class="text-slate-500">Headline</p>
+          <p class="mt-1 font-semibold text-slate-950">{{ form.headline || 'Não definida' }}</p>
         </div>
         <div>
-          <p class="text-gray-500">Localização</p>
-          <p class="mt-1 font-semibold text-white">
+          <p class="text-slate-500">Localização</p>
+          <p class="mt-1 font-semibold text-slate-950">
             {{ [form.city, form.state, form.country].filter(Boolean).join(', ') || 'Não definida' }}
           </p>
         </div>
         <div>
-          <p class="text-gray-500">Links</p>
-          <p class="mt-1 text-gray-300">
+          <p class="text-slate-500">Links</p>
+          <p class="mt-1 text-slate-600">
             {{ [form.linkedin_url, form.github_url, form.website_url].filter(Boolean).length }} preenchidos
           </p>
         </div>

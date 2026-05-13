@@ -2,6 +2,7 @@ export interface AuthUser {
   id?: number | string
   name?: string
   email?: string
+  avatar?: string | null
 }
 
 export interface LoginPayload {

@@ -39,10 +39,11 @@ const workflow = [
 
 <template>
   <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] xl:col-span-2">
+    <section class="ip-card-strong p-6 xl:col-span-2">
       <div class="mb-5">
-        <h1 class="text-2xl font-black text-white">Construa sua presença profissional</h1>
-        <p class="mt-1 max-w-3xl text-sm text-gray-500">
+        <p class="text-xs font-black uppercase tracking-[0.22em] text-[var(--ip-primary)]">Painel de criação</p>
+        <h1 class="mt-2 text-3xl font-black tracking-tight text-slate-950">Construa sua presença profissional</h1>
+        <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
           O currículo, os templates e o portfólio são gerados a partir das mesmas informações do seu perfil profissional.
         </p>
       </div>
@@ -50,13 +51,13 @@ const workflow = [
         <article
           v-for="item in workflow"
           :key="item.step"
-          class="rounded-2xl border border-white/10 bg-black/20 p-4"
+          class="rounded-3xl border border-slate-100 bg-white/75 p-4 shadow-sm"
         >
-          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 text-sm font-black text-white">
+          <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--ip-primary)] text-sm font-black text-white shadow-[0_12px_28px_rgba(58,134,255,0.25)]">
             {{ item.step }}
           </span>
-          <h2 class="mt-4 font-black text-white">{{ item.title }}</h2>
-          <p class="mt-2 text-sm leading-6 text-gray-500">{{ item.text }}</p>
+          <h2 class="mt-4 font-black text-slate-950">{{ item.title }}</h2>
+          <p class="mt-2 text-sm leading-6 text-slate-500">{{ item.text }}</p>
         </article>
       </div>
     </section>
@@ -65,61 +66,61 @@ const workflow = [
       <article
         v-for="stat in stats"
         :key="stat.title"
-        class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+        class="ip-card p-5"
       >
         <div class="flex items-start justify-between gap-3">
           <div>
-            <p class="text-sm font-black text-white">{{ stat.title }}</p>
-            <p class="mt-2 text-3xl font-black tracking-tight text-white">{{ stat.value }}</p>
+            <p class="text-sm font-black text-slate-950">{{ stat.title }}</p>
+            <p class="mt-2 text-3xl font-black tracking-tight text-slate-950">{{ stat.value }}</p>
           </div>
-          <span class="rounded-xl border border-white/10 px-2.5 py-1 text-xs text-gray-500">↗</span>
+          <span class="rounded-2xl border border-slate-200 bg-white px-2.5 py-1 text-xs text-slate-400">↗</span>
         </div>
-        <p class="mt-1 text-xs text-violet-300">{{ stat.percent }} completo</p>
-        <div class="mt-3 h-2 rounded-full bg-white/10">
-          <div class="h-full rounded-full bg-violet-600" :style="{ width: stat.percent }" />
+        <p class="mt-1 text-xs font-bold text-[var(--ip-primary)]">{{ stat.percent }} completo</p>
+        <div class="mt-3 h-2 rounded-full bg-slate-100">
+          <div class="h-full rounded-full bg-[var(--ip-primary)]" :style="{ width: stat.percent }" />
         </div>
-        <p class="mt-3 text-xs text-gray-500">{{ stat.detail }}</p>
+        <p class="mt-3 text-xs text-slate-500">{{ stat.detail }}</p>
       </article>
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] xl:row-span-2">
+    <section class="ip-card p-5 xl:row-span-2">
       <div class="mb-5">
-        <h2 class="text-base font-black text-white">Progresso do perfil</h2>
-        <p class="text-sm text-gray-500">Acompanhe a preparação para publicação.</p>
+        <h2 class="text-base font-black text-slate-950">Progresso do perfil</h2>
+        <p class="text-sm text-slate-500">Acompanhe a preparação para publicação.</p>
       </div>
-      <div class="mx-auto flex h-48 w-48 items-center justify-center rounded-full bg-[conic-gradient(#7c3aed_0_68%,rgba(255,255,255,0.08)_68%_100%)]">
-        <div class="flex h-32 w-32 flex-col items-center justify-center rounded-full bg-[#111019]">
-          <strong class="text-3xl text-white">68%</strong>
-          <span class="text-xs text-gray-500">completo</span>
+      <div class="mx-auto flex h-48 w-48 items-center justify-center rounded-full bg-[conic-gradient(#3a86ff_0_68%,#e2e8f0_68%_100%)]">
+        <div class="flex h-32 w-32 flex-col items-center justify-center rounded-full bg-white">
+          <strong class="text-3xl text-slate-950">68%</strong>
+          <span class="text-xs text-slate-500">completo</span>
         </div>
       </div>
       <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
-        <div class="rounded-xl bg-black/30 p-3">
-          <p class="font-bold text-white">CV</p>
-          <p class="text-xs text-gray-500">Pronto para revisão</p>
+        <div class="rounded-2xl bg-slate-50 p-3">
+          <p class="font-bold text-slate-950">CV</p>
+          <p class="text-xs text-slate-500">Pronto para revisão</p>
         </div>
-        <div class="rounded-xl bg-black/30 p-3">
-          <p class="font-bold text-white">Portfólio</p>
-          <p class="text-xs text-gray-500">Faltam projetos</p>
+        <div class="rounded-2xl bg-slate-50 p-3">
+          <p class="font-bold text-slate-950">Portfólio</p>
+          <p class="text-xs text-slate-500">Faltam projetos</p>
         </div>
       </div>
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    <section class="ip-card p-5">
       <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 class="text-base font-black text-white">Tarefas de preparação</h2>
-          <p class="text-sm text-gray-500">Atividades para deixar seu perfil pronto.</p>
+          <h2 class="text-base font-black text-slate-950">Tarefas de preparação</h2>
+          <p class="text-sm text-slate-500">Atividades para deixar seu perfil pronto.</p>
         </div>
         <div class="flex gap-2">
-          <button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-gray-300">Ver tudo</button>
-          <button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-gray-300">Exportar</button>
+          <button class="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600">Ver tudo</button>
+          <button class="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600">Exportar</button>
         </div>
       </div>
 
       <div class="overflow-x-auto">
         <table class="w-full min-w-[680px] text-left text-sm">
-          <thead class="border-y border-white/10 bg-black/30 text-xs text-gray-500">
+          <thead class="border-y border-slate-100 bg-slate-50 text-xs text-slate-500">
             <tr>
               <th class="px-3 py-3 font-bold">#</th>
               <th class="px-3 py-3 font-bold">Nome</th>
@@ -131,50 +132,50 @@ const workflow = [
           </thead>
           <tbody class="divide-y divide-white/10">
             <tr v-for="task in tasks" :key="task.id">
-              <td class="px-3 py-4 font-bold text-white">{{ task.id }}</td>
-              <td class="px-3 py-4 font-semibold text-white">{{ task.name }}</td>
-              <td class="px-3 py-4 text-gray-400">{{ task.status }}</td>
-              <td class="px-3 py-4 text-gray-400">{{ task.date }}</td>
-              <td class="px-3 py-4 font-semibold text-white">{{ task.tag }}</td>
-              <td class="px-3 py-4 text-gray-400">{{ task.priority }}</td>
+              <td class="px-3 py-4 font-bold text-slate-950">{{ task.id }}</td>
+              <td class="px-3 py-4 font-semibold text-slate-950">{{ task.name }}</td>
+              <td class="px-3 py-4 text-slate-500">{{ task.status }}</td>
+              <td class="px-3 py-4 text-slate-500">{{ task.date }}</td>
+              <td class="px-3 py-4 font-semibold text-slate-950">{{ task.tag }}</td>
+              <td class="px-3 py-4 text-slate-500">{{ task.priority }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    <section class="ip-card p-5">
       <div class="mb-4 flex items-center justify-between gap-3">
         <div>
-          <h2 class="text-base font-black text-white">Meus próximos passos</h2>
-          <p class="text-sm text-gray-500">Tudo que precisa ser feito em um só lugar.</p>
+          <h2 class="text-base font-black text-slate-950">Meus próximos passos</h2>
+          <p class="text-sm text-slate-500">Tudo que precisa ser feito em um só lugar.</p>
         </div>
-        <button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-gray-300">+ Novo</button>
+        <button class="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600">+ Novo</button>
       </div>
 
       <div class="space-y-3">
         <label
           v-for="todo in todos"
           :key="todo"
-          class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-4"
+          class="flex items-start gap-3 rounded-3xl border border-slate-100 bg-slate-50/80 p-4"
         >
-          <input type="checkbox" class="mt-1 rounded border-white/20 bg-black/30 text-violet-600 focus:ring-violet-600" />
+          <input type="checkbox" class="mt-1 rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-600" />
           <span>
-            <span class="block text-sm font-bold text-white">{{ todo }}</span>
-            <span class="mt-1 block text-xs text-gray-500">Organize a informação antes de publicar.</span>
+            <span class="block text-sm font-bold text-slate-950">{{ todo }}</span>
+            <span class="mt-1 block text-xs text-slate-500">Organize a informação antes de publicar.</span>
           </span>
         </label>
       </div>
     </section>
 
-    <section class="rounded-2xl border border-white/10 bg-[#111019] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-      <h2 class="text-base font-black text-white">Distribuição de conteúdo</h2>
-      <p class="text-sm text-gray-500">Categorias usadas nos templates.</p>
+    <section class="ip-card p-5">
+      <h2 class="text-base font-black text-slate-950">Distribuição de conteúdo</h2>
+      <p class="text-sm text-slate-500">Categorias usadas nos templates.</p>
       <div class="mt-5 grid grid-cols-2 gap-5">
         <div class="flex h-40 items-center justify-center rounded-full bg-[conic-gradient(#7c3aed_0_34%,#ef704f_34%_59%,#e7c95f_59%_78%,#25434d_78%_100%)]">
-          <div class="h-24 w-24 rounded-full bg-[#111019]" />
+          <div class="h-24 w-24 rounded-full bg-white" />
         </div>
-        <div class="space-y-3 self-center text-sm text-gray-300">
+        <div class="space-y-3 self-center text-sm text-slate-600">
           <p class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-violet-600" /> Experiência</p>
           <p class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-[#ef704f]" /> Projetos</p>
           <p class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-[#e7c95f]" /> Skills</p>
