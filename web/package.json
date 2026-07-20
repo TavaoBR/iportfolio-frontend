@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.16.0",
+    "axios": "^1.18.1",
     "flowbite": "^4.0.1",
     "flowbite-vue": "^0.2.3",
     "pinia": "^3.0.4",
